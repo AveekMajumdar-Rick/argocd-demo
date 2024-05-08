@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-demo-v1
+  labels:
+    app: argocd-demo
+spec:
+  selector:
+    matchLabels:
+      app: argocd-demo
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: argocd-demo
+        version: v1
+    spec:
+      containers:
+        - name: argocd-demo
+          image: aveek123456/hellodemo1995:1.2.0 #image needs to be changed
+          resources:
+            limits:
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 200Mi
+          ports:
+            — containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5

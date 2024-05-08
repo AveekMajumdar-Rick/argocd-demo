@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-demo
+  labels:
+    app: argocd-demo
+spec:
+  selector:
+    app: argocd-demo
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
